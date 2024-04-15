@@ -16,8 +16,6 @@ services:
     depends_on:
       - db
     image: wordpress:latest
-    ports:
-      - "8000:80"
     restart: always
     environment:
       WORDPRESS_DB_HOST: db:3306
@@ -26,6 +24,17 @@ services:
       WORDPRESS_DB_NAME: wordpress
     volumes:
       - wordpress_data:/var/www/html
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./localhost.crt:/etc/ssl/certs/localhost.crt
+      - ./localhost.key:/etc/ssl/private/localhost.key
+    depends_on:
+      - wordpress
 
 volumes:
   db_data: {}
