@@ -36,6 +36,7 @@ services:
     ports:
       - "80:80"   # Para HTTP
       - "443:443" # Para HTTPS
+    restart: always
     depends_on:
       - wordpress
 
